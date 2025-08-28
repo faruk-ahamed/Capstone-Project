@@ -455,9 +455,9 @@ void approveComplaints() {
 void aboutUs() {
     clearScreen();
     centerTextColor(ORANGE, "=== ABOUT US ===");
-    centerTextColor(CYAN, "Complaint Management System v1.0");
-    centerTextColor(CYAN, "Developed by Team XYZ");
-    centerPrintf("Enter B to go back, H for main dashboard.");
+    centerTextColor(CYAN, "Complaint Management System v1.0 is made for the public of all level. Let's take our country at the top.");
+    centerTextColor(CYAN, "Developed by Afnan, Faruk and Kailas.");
+    centerPrintf("Enter [B] to go back [H] for main dashboard.");
     char input[16];
     safeInput(input, sizeof(input));
 }
@@ -468,7 +468,7 @@ void userManual() {
     centerTextColor(CYAN, "- Compose complaints");
     centerTextColor(CYAN, "- View & track your complaints");
     centerTextColor(CYAN, "- Stay updated on complaint status");
-    centerPrintf("Enter B to go back, H for main dashboard.");
+    centerPrintf("Enter [B] to go back, [H] for main dashboard.");
     char input[16];
     safeInput(input, sizeof(input));
 }
@@ -539,7 +539,7 @@ int viewStaffComplaints(const char *staffUsername) {
         }
     }
     if (!found) centerTextColor(RED, "No complaints found for your assigned type.");
-    centerPrintf("Enter B to go back, H for main dashboard.");
+    centerPrintf("Enter [B] to go back, [H] for main dashboard.");
     char input[16];
     safeInput(input, sizeof(input));
     if (input[0] == 'B' || input[0] == 'b') return 1;
@@ -585,7 +585,7 @@ void staffDashboard(const char *staffUsername) {
     while (1) {
         clearScreen();
         centerTextColor(ORANGE, "=====================================");
-        centerTextColor(ORANGE, "=== STAFF DASHBOARD ===");
+        centerTextColor(ORANGE, "=== EMPLOYEE DASHBOARD ===");
         centerTextColor(ORANGE, "=====================================");
         centerTextColor(GREEN, "1. View Assigned Complaints");
         centerTextColor(GREEN, "2. Update Complaint Status");
@@ -611,8 +611,8 @@ void staffDashboard(const char *staffUsername) {
 
 void assignStaffToComplaintType() {
     clearScreen();
-    centerTextColor(ORANGE, "=== ASSIGN STAFF TO COMPLAINT TYPE ===");
-    centerScanfPrompt("Enter staff username (B=Back,H=Home): ");
+    centerTextColor(ORANGE, "=== ASSIGN EMPLOYEE TO COMPLAINT TYPE ===");
+    centerScanfPrompt("Enter employee username (B=Back,H=Home): ");
     char staffUsername[32];
     safeInput(staffUsername, sizeof(staffUsername));
     if (staffUsername[0] == 'B' || staffUsername[0] == 'b') return;
@@ -620,7 +620,7 @@ void assignStaffToComplaintType() {
 
     User *u = findUserByUsername(staffUsername);
     if (!u || strcmp(u->role, "staff") != 0) {
-        centerTextColor(RED, "No such staff user.");
+        centerTextColor(RED, "No such employee user.");
         centerPause();
         return;
     }
@@ -644,18 +644,18 @@ void assignStaffToComplaintType() {
         staffCount++;
     }
     saveStaff();
-    centerTextColor(GREEN, "Staff assigned to complaint type successfully.");
+    centerTextColor(GREEN, "Employee assigned to complaint type successfully.");
     centerPause();
 }
 
 void addStaff() {
     clearScreen();
     centerTextColor(ORANGE, "=====================================");
-    centerTextColor(ORANGE, "=== ADD STAFF ===");
+    centerTextColor(ORANGE, "=== ADD EMPLOYEE ===");
     centerTextColor(ORANGE, "=====================================");
 
     User u;
-    centerScanfPrompt("Enter username for new staff: ");
+    centerScanfPrompt("Enter username for new employee: ");
     safeInput(u.username, sizeof(u.username));
 
     if (isUsernameTaken(u.username)) {
@@ -667,7 +667,7 @@ void addStaff() {
     centerScanfPrompt("Enter password: ");
     safeInput(u.password, sizeof(u.password));
 
-    strcpy(u.role, "staff");
+    strcpy(u.role, "employee");
     strcpy(u.phone, "NA");
     strcpy(u.nid, "NA");
     strcpy(u.email, "NA");
@@ -680,7 +680,7 @@ void addStaff() {
     // Now assign complaint type
     clearScreen();
     centerTextColor(ORANGE, "=== ASSIGN COMPLAINT TYPE ===");
-    centerTextColor(GREEN, "Select complaint type this staff will handle:");
+    centerTextColor(GREEN, "Select type to add employee:");
     centerTextColor(GREEN, "1. Electricity");
     centerTextColor(GREEN, "2. Waste");
     centerTextColor(GREEN, "3. Water");
@@ -718,7 +718,7 @@ void addStaff() {
         saveStaff();
     }
 
-    centerTextColor(GREEN, "Staff added successfully!");
+    centerTextColor(GREEN, "Employee added successfully!");
     centerPrintf("Username: %s will handle %s complaints", u.username, handledType);
     centerPause();
 }
@@ -746,10 +746,10 @@ void viewAllComplaintsAdmin() {
 void deleteStaff() {
     clearScreen();
     centerTextColor(ORANGE, "=====================================");
-    centerTextColor(ORANGE, "=== DELETE STAFF ===");
+    centerTextColor(ORANGE, "=== DELETE EMPLOYEE ===");
     centerTextColor(ORANGE, "=====================================");
 
-    centerScanfPrompt("Enter staff username to delete: ");
+    centerScanfPrompt("Enter employee username to delete: ");
     char uname[32];
     safeInput(uname, sizeof(uname));
 
@@ -762,7 +762,7 @@ void deleteStaff() {
     }
 
     if (userIndex == -1) {
-        centerTextColor(RED, "No such staff user found.");
+        centerTextColor(RED, "No such employee user found.");
         centerPause();
         return;
     }
@@ -789,7 +789,7 @@ void deleteStaff() {
         saveStaff();
     }
 
-    centerTextColor(GREEN, "Staff deleted successfully.");
+    centerTextColor(GREEN, "Employee deleted successfully.");
     centerPause();
 }
 
@@ -812,12 +812,12 @@ void adminDashboard() {
         centerTextColor(ORANGE, "=====================================");
         centerTextColor(ORANGE, "=== ADMIN DASHBOARD ===");
         centerTextColor(ORANGE, "=====================================");
-        centerTextColor(GREEN, "1. View All Complaints");
-        centerTextColor(GREEN, "2. Approve Pending Complaints");
-        centerTextColor(GREEN, "3. View All Users");
-        centerTextColor(GREEN, "4. Assign Staff to Complaint Type");
-        centerTextColor(GREEN, "5. Add Staff");
-        centerTextColor(GREEN, "6. Delete Staff");
+        centerTextColor(GREEN, "1. View all complaints");
+        centerTextColor(GREEN, "2. Approve pending complaints");
+        centerTextColor(GREEN, "3. Assign employee to complaint type");
+        centerTextColor(GREEN, "4. Add employee");
+        centerTextColor(GREEN, "5. Delete employee");
+         centerTextColor(GREEN, "6. View All Users");
         centerTextColor(GREEN, "7. Logout");
         char nav = 0;
         int choice = getIntChoiceWithNav("Choice (B=Back,H=Home): ", &nav);
@@ -904,12 +904,21 @@ int main() {
 
     while (1) {
         clearScreen();
+        centerTextColor(CYAN, "  ######    ##     ##   #######  ");
+        centerTextColor(CYAN, " ##    ##   ###   ###  ##        ");
+        centerTextColor(CYAN, "##         ####  ####  ##        ");
+        centerTextColor(CYAN, "##         ## ### ##   #######   ");
+        centerTextColor(CYAN, "##         ##     ##         ##  ");
+        centerTextColor(CYAN, " ##   ##   ##     ##  ##     ##  ");
+        centerTextColor(CYAN, "  #####    ##     ##   #######   \n");
         centerTextColor(ORANGE, "==============================================");
         centerTextColor(ORANGE, "=== COMPLAINT MANAGEMENT SYSTEM ===");
-        centerTextColor(ORANGE, "==============================================");
+        centerTextColor(ORANGE, "==============================================\n");
+        centerTextColor(CYAN, "Stand for your right, speak for your freedom.\n\n");
         centerTextColor(GREEN, "1. Register");
         centerTextColor(GREEN, "2. Login");
-        centerTextColor(GREEN, "3. Exit");
+        centerTextColor(GREEN, "3. Exit\n\n\n\n");
+     
         char nav = 0;
         int choice = getIntChoiceWithNav("Choice: ", &nav);
         if (nav == 'H' || nav == 'B') continue;
@@ -931,6 +940,7 @@ int main() {
                 centerTextColor(RED, "Invalid choice.");
                 centerPause();
         }
+        
     }
     return 0;
 }
